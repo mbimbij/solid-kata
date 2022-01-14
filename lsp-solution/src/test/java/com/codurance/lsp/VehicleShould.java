@@ -1,12 +1,12 @@
 package com.codurance.lsp;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class VehicleShould {
+class VehicleShould {
     @Test
-    public void start_engine() {
+    void start_engine() {
         Vehicle vehicle = new TestableVehicle();
         vehicle.startEngine();
 
@@ -15,7 +15,7 @@ public class VehicleShould {
     }
 
     @Test
-    public void stop_engine() {
+    void stop_engine() {
         Vehicle vehicle = new TestableVehicle();
         vehicle.startEngine();
         vehicle.stopEngine();
@@ -24,6 +24,6 @@ public class VehicleShould {
                 .isFalse();
     }
 
-    public static class TestableVehicle extends Vehicle {
+    static class TestableVehicle extends Vehicle {
     }
 }

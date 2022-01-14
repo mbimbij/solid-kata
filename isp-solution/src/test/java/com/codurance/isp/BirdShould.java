@@ -9,7 +9,7 @@ import java.io.PrintStream;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BirdShould {
-    private ByteArrayOutputStream consoleContent = new ByteArrayOutputStream();
+    private final ByteArrayOutputStream consoleContent = new ByteArrayOutputStream();
     private final Bird bird = new Bird();
 
     @BeforeEach
@@ -21,14 +21,14 @@ class BirdShould {
     @Test
     void run() {
         bird.run();
-        assertThat(consoleContent.toString())
-                .isEqualTo("Bird is running");
+        assertThat(consoleContent)
+                .hasToString("Bird is running");
     }
 
     @Test
     void fly() {
         bird.fly();
-        assertThat(consoleContent.toString())
-                .isEqualTo("Bird is flying");
+        assertThat(consoleContent)
+                .hasToString("Bird is flying");
     }
 }

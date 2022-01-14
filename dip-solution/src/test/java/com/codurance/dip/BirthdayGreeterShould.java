@@ -1,23 +1,23 @@
 package com.codurance.dip;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.MonthDay;
 import java.util.Collections;
 
 import static com.codurance.dip.EmployeeBuilder.anEmployee;
-import static org.junit.Assert.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
-public class BirthdayGreeterShould {
+@ExtendWith(MockitoExtension.class)
+class BirthdayGreeterShould {
     private static final int CURRENT_MONTH = 7;
     private static final int CURRENT_DAY_OF_MONTH = 9;
     private static final MonthDay TODAY = MonthDay.of(CURRENT_MONTH, CURRENT_DAY_OF_MONTH);
@@ -32,7 +32,7 @@ public class BirthdayGreeterShould {
     private ArgumentCaptor<Email> emailArgumentCaptor;
 
     @Test
-    public void should_send_greeting_email_to_employee() {
+    void should_send_greeting_email_to_employee() {
         BirthdayGreeter birthdayGreeter = new BirthdayGreeter(employeeRepository, clock, emailSender);
 
         given(clock.monthDay()).willReturn(TODAY);
@@ -44,8 +44,8 @@ public class BirthdayGreeterShould {
         verify(emailSender, Mockito.times(1)).send(emailArgumentCaptor.capture());
         Email sentEmail = emailArgumentCaptor.getValue();
 
-        assertEquals(employee.getEmail(), sentEmail.getTo());
-        assertEquals("Happy birthday!", sentEmail.getSubject());
-        assertEquals("Happy birthday, dear John!", sentEmail.getMessage());
+        assertThat(employee.getEmail()).isEqualTo(sentEmail.getTo());
+        assertThat(sentEmail.getSubject()).isEqualTo("Happy birthday!");
+        assertThat(sentEmail.getMessage()).isEqualTo("Happy birthday, dear John!");
     }
 }

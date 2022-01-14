@@ -1,12 +1,11 @@
 package com.codurance.srp;
 
-
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
 import org.mockito.Mock;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -17,8 +16,8 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.verify;
 
-@RunWith(MockitoJUnitRunner.class)
-public class AccountServiceShould {
+@ExtendWith(MockitoExtension.class)
+class AccountServiceShould {
 
     private static final int POSITIVE_AMOUNT = 100;
     private static final int NEGATIVE_AMOUNT = -POSITIVE_AMOUNT;
@@ -40,33 +39,32 @@ public class AccountServiceShould {
 
     private AccountService accountService;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         StatementPrinter statementPrinter = new StatementPrinter(console);
         accountService = new AccountService(transactionRepository, statementPrinter, clock);
+    }
+
+    private void setupClock() {
         given(clock.today()).willReturn(TODAY);
     }
 
-
     @Test
-    public void deposit_amount_into_the_account() {
-
+    void deposit_amount_into_the_account() {
+        setupClock();
         accountService.deposit(POSITIVE_AMOUNT);
-
         verify(transactionRepository).add(refEq(new Transaction(TODAY, POSITIVE_AMOUNT)));
     }
 
-
     @Test
-    public void withdraw_amount_from_the_account() {
-
+    void withdraw_amount_from_the_account() {
+        setupClock();
         accountService.withdraw(POSITIVE_AMOUNT);
-
         verify(transactionRepository).add(refEq(new Transaction(TODAY, NEGATIVE_AMOUNT)));
     }
 
     @Test
-    public void print_statement() {
+    void print_statement() {
         given(transactionRepository.all()).willReturn(TRANSACTIONS);
 
         accountService.printStatement();
@@ -78,5 +76,3 @@ public class AccountServiceShould {
         inOrder.verify(console).printLine("01/04/2014 | 1000.00 | 1000.00");
     }
 }
-
-
