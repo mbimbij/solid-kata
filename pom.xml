@@ -10,10 +10,15 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>srp</module>
+        <module>srp-solution</module>
         <module>ocp</module>
+        <module>ocp-solution</module>
         <module>lsp</module>
+        <module>lsp-solution</module>
         <module>isp</module>
+        <module>isp-solution</module>
         <module>dip</module>
+        <module>dip-solution</module>
     </modules>
 
     <properties>
@@ -66,7 +71,5 @@
             <version>4.12.3</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
-
 </project>

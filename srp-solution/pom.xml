@@ -9,5 +9,12 @@
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>lsp</artifactId>
+    <artifactId>srp-solution</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.16</version>
+        </dependency>
+    </dependencies>
 </project>
