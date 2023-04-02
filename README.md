@@ -19,4 +19,9 @@ forced to depend on interfaces they do not use.
 
 The objective is modify each of the examples in order to not violate the corresponding SOLID principle.
 
+## Plan
+Explanations and exercises to run the kata available [here](https://yoan-thirion.gitbook.io/knowledge-base/software-craftsmanship/code-katas/write-s.o.l.i.d-code)
+![SOLID kata](img/solid.png)
+
+## Solution
 Solutions explanations are available [here](/solution.md)
