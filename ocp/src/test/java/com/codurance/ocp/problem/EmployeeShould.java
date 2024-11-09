@@ -1,4 +1,4 @@
-package com.codurance.ocp;
+package com.codurance.ocp.problem;
 
 import org.junit.jupiter.api.Test;
 

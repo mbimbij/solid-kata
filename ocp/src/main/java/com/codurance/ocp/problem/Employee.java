@@ -1,4 +1,4 @@
-package com.codurance.ocp;
+package com.codurance.ocp.problem;
 
 public class Employee {
 
