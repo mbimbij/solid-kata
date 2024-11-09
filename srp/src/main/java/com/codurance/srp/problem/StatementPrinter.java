@@ -1,4 +1,4 @@
-package com.codurance.srp;
+package com.codurance.srp.problem;
 
 import lombok.RequiredArgsConstructor;
 
@@ -9,23 +9,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-public class StatementsPrinter {
+public class StatementPrinter {
     private static final String STATEMENT_HEADER = "DATE | AMOUNT | BALANCE";
     static final String DATE_FORMAT = "dd/MM/yyyy";
     static final String AMOUNT_FORMAT = "#.00";
 
     private final Console console;
 
-    void print(List<StatementTransaction> transactions) {
+    void print(List<Transaction> transactions) {
         printHeader();
         printTransactions(transactions);
     }
 
-    private void printTransactions(List<StatementTransaction> transactions) {
+    private void printTransactions(List<Transaction> transactions) {
         List<String> statementLines = transactions.stream()
                 .map(this::statementLine)
                 .collect(Collectors.toList())
@@ -34,14 +33,14 @@ public class StatementsPrinter {
     }
 
     private void printHeader() {
-        printLine(StatementsPrinter.STATEMENT_HEADER);
+        printLine(StatementPrinter.STATEMENT_HEADER);
     }
 
     private void printLine(String line) {
         this.console.printLine(line);
     }
 
-    private String statementLine(StatementTransaction transaction) {
+    private String statementLine(Transaction transaction) {
         return MessageFormat.format("{0} | {1} | {2}",
                 formatDate(transaction.date()),
                 formatNumber(transaction.amount()),

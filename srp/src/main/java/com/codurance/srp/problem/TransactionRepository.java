@@ -1,9 +1,8 @@
-package com.codurance.srp;
+package com.codurance.srp.problem;
 
 import java.util.List;
 
 public interface TransactionRepository {
     void add(Transaction transaction);
     List<Transaction> all();
-    List<StatementTransaction> all2();
 }
