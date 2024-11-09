@@ -20,9 +20,17 @@ public class StatementsPrinter {
 
     private final Console console;
 
-    void print(List<Transaction> transactions) {
+    void print(List<StatementTransaction> transactions) {
         printHeader();
         printTransactions(transactions);
+    }
+
+    private void printTransactions(List<StatementTransaction> transactions) {
+        List<String> statementLines = transactions.stream()
+                .map(this::statementLine)
+                .collect(Collectors.toList())
+                .reversed();
+        statementLines.forEach(this::printLine);
     }
 
     private void printHeader() {
@@ -33,17 +41,11 @@ public class StatementsPrinter {
         this.console.printLine(line);
     }
 
-    private void printTransactions(List<Transaction> transactions) {
-        final AtomicInteger balance = new AtomicInteger(0);
-        List<String> statementLines = transactions.stream()
-                .map(transaction -> statementLine(transaction, balance.addAndGet(transaction.amount())))
-                .collect(Collectors.toList())
-                .reversed();
-        statementLines.forEach(this::printLine);
-    }
-
-    private String statementLine(Transaction transaction, int balance) {
-        return MessageFormat.format("{0} | {1} | {2}", formatDate(transaction.date()), formatNumber(transaction.amount()), formatNumber(balance));
+    private String statementLine(StatementTransaction transaction) {
+        return MessageFormat.format("{0} | {1} | {2}",
+                formatDate(transaction.date()),
+                formatNumber(transaction.amount()),
+                formatNumber(transaction.balance()));
     }
 
     private String formatDate(LocalDate date) {
