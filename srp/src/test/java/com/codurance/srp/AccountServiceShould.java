@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InOrder;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
@@ -37,11 +38,14 @@ class AccountServiceShould {
     @Mock
     private Console console;
 
+    @InjectMocks
+    private StatementsPrinter printer;
+
     private AccountService accountService;
 
     @BeforeEach
     public void setUp() {
-        accountService = new AccountService(transactionRepository, clock, console);
+        accountService = new AccountService(transactionRepository, clock, console, printer);
     }
 
     private void setupClock() {
